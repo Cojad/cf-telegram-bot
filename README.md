@@ -6,7 +6,7 @@ You can handle telegram update the way you wish by override onUpdate method.
 
 Examples are about the same demos from [cvzi/telegram-bot-cloudflare](/cvzi/telegram-bot-cloudflare).
 
-## Setup:
+## Setup through Cloudflare GUI:
 
 1. Get your new bot token from [@BotFather](https://t.me/botfather): https://core.telegram.org/bots#6-botfather
 2. Sign up to Cloudflare Workers: https://workers.cloudflare.com/
@@ -23,6 +23,25 @@ Examples are about the same demos from [cvzi/telegram-bot-cloudflare](/cvzi/tele
 12. In the middle panel append `/registerWebhook` to the url. For example: https://my-worker-123.username.workers.dev/registerWebhook
 13. Click "Send". In the right panel should appear `Ok`. If 401 Unauthorized appears, you may have used a wrong bot token.
 14. That's it, now you can send a text message to your Telegram bot
+
+## Setup through Cloudflare Wrangler(Recommanded if you know how to use NPM and commandline tools):
+
+1. open any shell and put command: `npm create cloudflare@2.5.0 "YOUR_NEW_PROJECT_FOLDER_PATH"`
+2. Choose `"Hello World" Worker` for type of application
+3. Choose `No` for not to use TypeScript
+4. Choose if you like to use git for version control? `No` if you aren't sure
+5. Choose `No` for not to deploy yet
+6. Copy content of bot.js to overwrite all content of src/index.js
+7. Copy telegramBot.js to src/ folder
+8. add env variables to wrangler.toml like below
+```
+[vars]
+ENV_BOT_TOKEN= "1234567890:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" # bot token from [@BotFather](https://t.me/botfather)
+ENV_BOT_SECRET= "ANY_RANDOM_WORDS" # See https://core.telegram.org/bots/api#setwebhook
+```
+8. cd to `YOUR_NEW_PROJECT_FOLDER_PATH` and put command: `npm run deploy`
+9. command: `curl "https://my-worker-123.username.workers.dev/registerWebhook"`. You can find your worker url at step 8.
+10. You should see `Ok` in step 9. If 401 Unauthorized/404 Not Fount appears, you may have used a wrong bot token.
 
 ## Usage
 
