@@ -1,6 +1,10 @@
-# Telegram Bot on Cloudflare Workers
+# Another Cloudflare Workers Telegram Bot
 
-A minimal example of a Telegram Bot running on a Cloudflare Worker.
+Another Cloudflare Workers Telegram Bot is inspired by [cvzi/telegram-bot-cloudflare](/cvzi/telegram-bot-cloudflare).
+This is wrapped up as a class to make it easy to to used like any NPM library.
+You can handle telegram update the way you wish by override onUpdate method.
+
+Example could be found in /examples which is about the same demos from [cvzi/telegram-bot-cloudflare](/cvzi/telegram-bot-cloudflare).
 
 ## Setup:
 
@@ -13,13 +17,14 @@ A minimal example of a Telegram Bot running on a Cloudflare Worker.
 7. Add a new variable with the name `ENV_BOT_SECRET` and set the value to a random secret. See https://core.telegram.org/bots/api#setwebhook
 8. Click on "Quick Edit" to change the source code of your new worker
 9. Copy and paste the code from [bot.js](bot.js) into the editor
+10. Add new file named telegram-bot.js and copy code from [telegram-bot.js](telegram-bot.js) into the editor again
 10. Optional: Change the `WEBHOOK` variable to a different path. See https://core.telegram.org/bots/api#setwebhook
 11. Click on "Save and Deploy"
 12. In the middle panel append `/registerWebhook` to the url. For example: https://my-worker-123.username.workers.dev/registerWebhook
 13. Click "Send". In the right panel should appear `Ok`. If 401 Unauthorized appears, you may have used a wrong bot token.
 14. That's it, now you can send a text message to your Telegram bot
 
-## Bot behaviour
+## Usage
 
 The bot will send the original message back with `Echo:` prepended.
 If you want to change it, look at the function `onMessage()`. It receives a [Message](https://core.telegram.org/bots/api#message) object and sends a text back:
@@ -29,20 +34,20 @@ If you want to change it, look at the function `onMessage()`. It receives a [Mes
  * Handle incoming Message
  * https://core.telegram.org/bots/api#message
  */
-function onMessage (message) {
-  return sendPlainText(message.chat.id, 'Echo:\n' + message.text)
+function onMessage(message) {
+	return bot.sendPlainText(message.chat.id, `Echo:\n${message.text}`);
 }
 ```
 
-## bot2.js
+## example_inlineButtons.js
 
-The file [bot2.js](bot2.js) contains an improved bot, that demonstrates how to react to commands,
+The file [example_inlineButtons.js](/example_inlineButtons.js) contains an improved bot, that demonstrates how to react to commands,
 send and receive [inline buttons](https://core.telegram.org/bots/api#inlinekeyboardbutton),
 and create [MarkdownV2](https://core.telegram.org/bots/api#markdownv2-style)-formatted text.
 
-## bot3.js
+## example_inlineQueriesAndVoice.js
 
-The file [bot3.js](bot3.js) contains an improved version that replies inline queries with voice messages.
+The file [example_inlineQueriesAndVoice.js](example_inlineQueriesAndVoice.js) contains an improved version that replies inline queries with voice messages.
 The voice messages should be stored in OPUS format and .ogg in the cloud you most like.
 The audio files are listed in a JSON array with the following structure in a KV namespace called `NAMESPACE` and with following content under the key `input_files`.
 
@@ -66,9 +71,5 @@ Now in *Overview* -> your-worker -> *Settings* -> *Variables* -> *KV Namespace B
     ],
   ]
 ```
-## bot4.js
-The bot4 is a bot that randomly reacts to messages received. It demostrates how to use big reactions when the 🎉 emoji gets chosen.
-
-
----
-[![JavaScript Style Guide](https://cdn.rawgit.com/standard/standard/master/badge.svg)](https://github.com/standard/standard)
+## example_reaction.js
+The file [example_reaction,js](example_reaction) is a bot that randomly reacts to messages received. It demostrates how to use big reactions when the 🎉 emoji gets chosen.
