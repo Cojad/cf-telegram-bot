@@ -4,7 +4,7 @@ Another Cloudflare Workers Telegram Bot is inspired by [cvzi/telegram-bot-cloudf
 This is wrapped up as a class to make it easy to to used like any NPM library.
 You can handle telegram update the way you wish by override onUpdate method.
 
-Example could be found in /examples which is about the same demos from [cvzi/telegram-bot-cloudflare](/cvzi/telegram-bot-cloudflare).
+Examples are about the same demos from [cvzi/telegram-bot-cloudflare](/cvzi/telegram-bot-cloudflare).
 
 ## Setup:
 
